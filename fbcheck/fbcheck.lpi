@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  fbcheck.lpi — проект Lazarus 4.8 (консольное приложение, Object Pascal).
+
+  Как собрать в Lazarus:
+    1. Open Project -> fbcheck.lpi;
+    2. Package -> Add/Remove Packages -> IDE packages НЕ нужны;
+       проекту достаточно зависимостей компилятора: sqldb, ibmonitor не нужен.
+       В "Other" убедитесь, что в Use Published Units нет GUI-зависимостей.
+       Проще всего: Project -> Project Options -> Adding Units... Lazarus сам
+       подтянет пакеты SQLdb и FBClient при первом открытии (Unit search path).
+    3. Target OS = Win32/Win64. Для Windows 7 собирайте widgetset не нужен
+       (консоль), но ВАЖНО: для запуска на Win7 в Project Options ->
+       Execution & Layout -> Manifest оставьте по умолчанию (FPC 3.2+
+       поддерживает Win7);
+    4. Build -> Compile (Ctrl+F9) -> получится fbcheck.exe.
+
+  Ключевые опции в <CompilerOptions>:
+    - -Fu$(LazarusDir)/lcl и пути пакетов sqldb добавляются автоматически
+      через RequiredPackages (sqldb);
+    - режим Debug содержит -g -GLibNativeThreads? нет: для консоли не нужно.
+-->
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="12"/>
+    <General>
+      <Flags>
+        <MainUnitHasUsesSectionForAllUnits Value="False"/>
+        <CompatibilityMode Value="True"/>
+      </Flags>
+      <SessionStorage Value="InProjectDir"/>
+      <Title Value="fbcheck"/>
+      <Scaled Value="True"/>
+      <UseAppBundle Value="False"/>
+      <ResourceType Value="res"/>
+    </General>
+    <BuildModes>
+      <Item Name="Default" Default="True"/>
+      <Item Name="Debug">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="fbcheck"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/dbg"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <SyntaxMode Value="ObjFPC"/>
+              <CStyleOperator Value="False"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="i386"/>
+            <TargetOS Value="win32"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf3"/>
+              <UseExternalDbgSyms Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="False"/>
+              </Win32>
+            </Options>
+          </Linking>
+        </CompilerOptions>
+      </Item>
+      <Item Name="ReleaseWin32">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="fbcheck"/>
+          </Target>
+          <SearchPaths>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="i386"/>
+            <TargetOS Value="win32"/>
+          </CodeGeneration>
+          <Linking>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="False"/>
+              </Win32>
+            </Options>
+          </Linking>
+        </CompilerOptions>
+      </Item>
+      <Item Name="ReleaseWin64">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="fbcheck"/>
+          </Target>
+          <SearchPaths>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="win64"/>
+          </CodeGeneration>
+          <Linking>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="False"/>
+              </Win32>
+            </Options>
+          </Linking>
+        </CompilerOptions>
+      </Item>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+    <RunParams>
+      <FormatVersion Value="2"/>
+    </RunParams>
+    <!-- Зависимости от пакет Lazarus: SQLdb содержит и dbf/odbc, и IBConnection -->
+    <RequiredPackages>
+      <Item>
+        <PackageName Value="SQLdb"/>
+      </Item>
+    </RequiredPackages>
+    <Units>
+      <Unit>
+        <Filename Value="fbcheck.lpr"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="src/ulogger.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ulogger"/>
+      </Unit>
+      <Unit>
+        <Filename Value="src/uenvinfo.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uenvinfo"/>
+      </Unit>
+      <Unit>
+        <Filename Value="src/ufbnative.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ufbnative"/>
+      </Unit>
+      <Unit>
+        <Filename Value="src/fodbccheck.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="fodbccheck"/>
+      </Unit>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <Target>
+      <Filename Value="fbcheck"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="src"/>
+      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <SyntaxMode Value="ObjFPC"/>
+      </SyntaxOptions>
+    </Parsing>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="False"/>
+        </Win32>
+      </Options>
+    </Linking>
+  </CompilerOptions>
+</CONFIG>
