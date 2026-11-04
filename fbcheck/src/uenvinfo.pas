@@ -288,7 +288,7 @@ const
 --------------------------------------------------------------------------- }
 function FindFbClient(ALog: Pointer): TFbClientInfo;
 var
-  L        : TLogger absolute ALog;
+  L        : TLogger;
   i, j     : Integer;
   dir, envName, full: string;
   err      : LongWord;
@@ -296,6 +296,7 @@ var
   wBuf     : UnicodeString;
   found    : Integer;
 begin
+  L := TLogger(ALog);
   FillChar(Result{%H-}, SizeOf(Result), 0);
   Result.Bitness := '?';
   Result.Version := '?';

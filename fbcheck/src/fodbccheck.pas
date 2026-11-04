@@ -87,7 +87,7 @@ end;
 
 function CheckOdbcFirebird(ALog: Pointer; const ADsn, AUser, APassword: string): TOdbcCheckResult;
 var
-  L        : TLogger absolute ALog;
+  L        : TLogger;
   drivers  : TStringList;
   i        : Integer;
   fbDrv    : string;      // имя первого Firebird/InterBase-драйвера
@@ -105,6 +105,7 @@ var
 {$ENDIF}
 begin
   FillChar(Result{%H-}, SizeOf(Result), 0);
+  L := TLogger(ALog);
   L.Info('=== ПРОВЕРКА ODBC-КАНАЛА (Firebird через существующий ODBC) ===');
 
   {---- Шаг 1. Драйвер в реестре --------------------------------------------}

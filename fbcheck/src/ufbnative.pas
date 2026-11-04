@@ -67,13 +67,14 @@ end;
 function CheckNativeFirebird(ALog: Pointer; const AHost: string;
   APort: Word; const AProbeDbPath: string): TNativeCheckResult;
 var
-  L        : TLogger absolute ALog;
+  L        : TLogger;
   Con      : TIBConnection;
   Trx      : TSQLTransaction;
   Q        : TSQLQuery;
   Fb       : TFbClientInfo;
   ErrText  : string;
 begin
+  L := TLogger(ALog);
   FillChar(Result{%H-}, SizeOf(Result), 0);
   Result.ServerReach := 0;
 
